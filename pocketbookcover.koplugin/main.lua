@@ -15,6 +15,14 @@ function PocketbookCover:update(title, page)
 
     local width = Screen:getWidth()
     local height = Screen:getHeight()
+    local rotation = Screen:getRotationMode()
+
+    if rotation == 1 or rotation == 3 then
+        local tmp = width
+
+        width = height
+        height = tmp
+    end
 
     image = RenderImage:scaleBlitBuffer(image, width, height)
     image:writeToFile("/mnt/ext1/system/logo/bookcover", "bmp", 100, false)
