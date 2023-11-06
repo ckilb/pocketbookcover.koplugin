@@ -2,7 +2,7 @@
 
 ## Installation
 
-Simply cCopy the folder *pocketbookcover.koplugin* to */applications/koreader/plugins* on your PocketBook device.
+Simply copy the folder *pocketbookcover.koplugin* to */applications/koreader/plugins* on your PocketBook device.
 
 ## Usage
 
