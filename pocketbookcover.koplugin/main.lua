@@ -13,6 +13,10 @@ local PocketbookCover = WidgetContainer:extend{
 function PocketbookCover:update(title, page)
     local image, _ = FileManagerBookInfo:getCoverImage(self.ui.document);
 
+    if not image then
+        return
+    end
+
     local width = Screen:getWidth()
     local height = Screen:getHeight()
     local rotation = Screen:getRotationMode()
