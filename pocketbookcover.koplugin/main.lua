@@ -30,6 +30,9 @@ function PocketbookCover:update(title, page)
 
     image = RenderImage:scaleBlitBuffer(image, width, height)
     image:writeToFile("/mnt/ext1/system/logo/bookcover", "bmp", 100, false)
+    
+    imagesleep = RenderImage:scaleBlitBuffer(image, width, height)
+    imagesleep:writeToFile("/mnt/ext1/system/resources/Line/taskmgr_lock_background.bmp", "bmp", 100, false)
 end
 
 function PocketbookCover:onReaderReady(doc)
