@@ -28,17 +28,32 @@ function PocketbookCover:update(title, page)
         height = tmp
     end
 
-    image = RenderImage:scaleBlitBuffer(image, width, height)
-    image:writeToFile("/mnt/ext1/system/logo/bookcover", "bmp", 100, false)
-    
-    imagesleep = RenderImage:scaleBlitBuffer(image, width, height)
-    imagesleep:writeToFile("/mnt/ext1/system/resources/Line/taskmgr_lock_background.bmp", "bmp", 100, false)
+    local imageScaled = RenderImage:scaleBlitBuffer(image, width, height)
+
+    imageScaled:writeToFile("/mnt/ext1/system/logo/bookcover", "bmp", 100, false)
+    imageScaled:writeToFile("/mnt/ext1/system/resources/Line/taskmgr_lock_background.bmp", "bmp", 100, false)
 end
 
 function PocketbookCover:onReaderReady(doc)
     UIManager:scheduleIn(1, function()
         self:update()
     end)
+end
+
+function PocketbookCover:onPageUpdate()
+    if not self.view.state then
+        return nil
+    end
+
+    if not self.view.state.page then
+        return nil
+    end
+
+    local page = self.document:getPageNumberInFlow(self.view.state.page)
+
+    if page == 1 then
+        self:update()
+    end
 end
 
 return PocketbookCover
