@@ -35,25 +35,23 @@ function PocketbookCover:update(title, page)
 end
 
 function PocketbookCover:onReaderReady(doc)
-    UIManager:scheduleIn(1, function()
-        self:update()
-    end)
+    self:update()
 end
 
-function PocketbookCover:onPageUpdate()
-    if not self.view.state then
-        return nil
-    end
+function PocketbookCover:onCloseDocument()
+    self:update()
+end
 
-    if not self.view.state.page then
-        return nil
-    end
+function PocketbookCover:onEndOfBook()
+    self:update()
+end
 
-    local page = self.document:getPageNumberInFlow(self.view.state.page)
+function PocketbookCover:onSuspend()
+    self:update()
+end
 
-    if page == 1 then
-        self:update()
-    end
+function PocketbookCover:onResume()
+    self:update()
 end
 
 return PocketbookCover
