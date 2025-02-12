@@ -17,18 +17,28 @@ function PocketbookCover:update(title, page)
         return
     end
 
-    local width = Screen:getWidth()
-    local height = Screen:getHeight()
+    local screenWidth = Screen:getWidth()
+    local screenHeight = Screen:getHeight()
     local rotation = Screen:getRotationMode()
 
     if rotation == 1 or rotation == 3 then
-        local tmp = width
+        local tmp = screenWidth
 
-        width = height
-        height = tmp
+        screenWidth = screenHeight
+        screenHeight = tmp
     end
+    
+    -- Get original image dimensions
+    local imgWidth = image:getWidth()
+    local imgHeight = image:getHeight()
 
-    local imageScaled = RenderImage:scaleBlitBuffer(image, width, height)
+    -- Calculate scaling factor
+    local scale = math.min(screenWidth / imgWidth, screenHeight / imgHeight)
+
+    local newWidth = math.floor(imgWidth * scale)
+    local newHeight = math.floor(imgHeight * scale)
+
+    local imageScaled = RenderImage:scaleBlitBuffer(image, newWidth, newHeight)
 
     imageScaled:writeToFile("/mnt/ext1/system/logo/bookcover", "bmp", 100, false)
     imageScaled:writeToFile("/mnt/ext1/system/resources/Line/taskmgr_lock_background.bmp", "bmp", 100, false)
